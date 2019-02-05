@@ -1,0 +1,32 @@
+{
+  "name": "server-fake-tweets",
+  "version": "1.0.0",
+  "description": "\"A simple Fake Tweets Server with Express and fakeuser9\"",
+  "main": "app.js",
+  "scripts": {
+    "build": "npm install",
+    "prestart": "npm run build",
+    "prerestart": "npm run build",
+    "start": "node app",
+    "start-dev": "node app",
+    "test": "mocha"
+  },
+  "keywords": [
+    "Tweets",
+    "Fake",
+    "Server"
+  ],
+  "author": "Carlo Leonardi <carloleonardi83@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "fakeuser9": "^1.0.0",
+    "supertest": "^3.3.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^5.2.0"
+  }
+}
