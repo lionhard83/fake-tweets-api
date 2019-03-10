@@ -6,8 +6,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-var tweets = require('./routes/tweets');
-app.use('/tweets', tweets);
+var posts = require('./routes/posts');
+app.use('/posts', posts);
 
 
 app.set('port', (process.env.PORT || 3001));

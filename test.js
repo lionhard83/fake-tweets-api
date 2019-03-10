@@ -2,10 +2,10 @@ var assert = require('assert');
 const request = require('supertest');
 const app = require('./app');
 
-describe('Test tweets api', function(){
-    it('Sto testando la lettura dei tweet', function(done){
+describe('Test posts api', function(){
+    it('Sto testando la lettura dei post', function(done){
         request(app)
-            .get('/tweets')
+            .get('/posts')
             .set('Accept', 'application/json')
             .expect(200)
             .end(function(err, res) {
@@ -17,7 +17,7 @@ describe('Test tweets api', function(){
 
     it('Sto testando il count', function(done){
         request(app)
-            .get('/tweets/count')
+            .get('/posts/count')
             .set('Accept', 'application/json')
             .expect(200)
             .end(function(err, res) {
@@ -27,13 +27,14 @@ describe('Test tweets api', function(){
             });
     })
 
-    it('Sto aggiungendo tweet', function(done){
+    it('Sto aggiungendo post', function(done){
         request(app)
-            .post('/tweets')
+            .post('/posts')
             .set('Accept', 'application/json')
             .send({
                 author: 'carloleonardi', 
-                message: 'Hello World'
+                message: 'Hello World',
+                image: 'image'
             })
             .expect(201)
             .end(function(err, res) {
@@ -42,13 +43,14 @@ describe('Test tweets api', function(){
             });
     })
 
-    it('Sto aggiungendo  un secondo tweet', function(done){
+    it('Sto aggiungendo un secondo post', function(done){
         request(app)
-            .post('/tweets')
+            .post('/posts')
             .set('Accept', 'application/json')
             .send({
                 author: 'carloleonardi', 
-                message: 'Hello Spank'
+                message: 'Hello Spank',
+                image: 'image'
             })
             .expect(201)
             .end(function(err, res) {
@@ -57,9 +59,38 @@ describe('Test tweets api', function(){
             });
     })
 
-    it('Sto testando la lettura dei tweet by carloleonardi', function(done){
+    it('Sto aggiungendo un commento al secondo post', function(done){
         request(app)
-            .get('/tweets?author=carloleonardi')
+            .post('/posts/1/comments')
+            .set('Accept', 'application/json')
+            .send({
+                author: 'carloleonardi', 
+                message: 'Hello Spank',
+            })
+            .expect(201)
+            .end(function(err, res) {
+                if (err) return done(err);
+                done(); 
+            });
+    })
+
+    it('Sto aggiungendo un likes al secondo post', function(done){
+        request(app)
+            .post('/posts/1/likes')
+            .set('Accept', 'application/json')
+            .send({
+                author: 'carloleonardi', 
+            })
+            .expect(201)
+            .end(function(err, res) {
+                if (err) return done(err);
+                done(); 
+            });
+    })
+
+    it('Sto testando la lettura dei post by carloleonardi', function(done){
+        request(app)
+            .get('/posts?author=carloleonardi')
             .set('Accept', 'application/json')
             .expect(200)
             .end(function(err, res) {
@@ -71,10 +102,10 @@ describe('Test tweets api', function(){
             });
     });
 
-    it('Sto testando la lettura dei tweet by word', function(done){
+    it('Sto testando la lettura dei post by word', function(done){
         var word = 'Hello World';
         request(app)
-            .get(`/tweets?word=${word}`)
+            .get(`/posts?word=${word}`)
             .set('Accept', 'application/json')
             .expect(200)
             .end(function(err, res) {
@@ -85,10 +116,10 @@ describe('Test tweets api', function(){
             });
     });
 
-    it('Sto testando la lettura dei tweet by word', function(done){
+    it('Sto testando la lettura dei post by word', function(done){
         var word = 'Hello Spank';
         request(app)
-            .get(`/tweets?word=${word}`)
+            .get(`/posts?word=${word}`)
             .set('Accept', 'application/json')
             .expect(200)
             .end(function(err, res) {
@@ -100,9 +131,9 @@ describe('Test tweets api', function(){
     });
 
 
-    it('Sto eliminando un tweet', function(done){
+    it('Sto eliminando un post', function(done){
         request(app)
-        .get('/tweets/count')
+        .get('/posts/count')
         .set('Accept', 'application/json')
         .expect(200)
         .end(function(err, res) {
@@ -110,13 +141,13 @@ describe('Test tweets api', function(){
             assert.equal(typeof res.body.count, 'number');
             var currentCount = res.body.count;
             request(app)
-            .delete('/tweets/0')
+            .delete('/posts/0')
             .set('Accept', 'application/json')
             .expect(200)
             .end(function(err, res) {
                 if (err) return done(err);
                 request(app)
-                .get('/tweets/count')
+                .get('/posts/count')
                 .set('Accept', 'application/json')
                 .expect(200)
                 .end(function(err, res) {
