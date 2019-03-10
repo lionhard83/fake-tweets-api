@@ -1,27 +1,36 @@
-# fake-tweets-api
+# fake-posts-api
 
-### A simple use fake-tweets-api
+### A simple use fake-posts-api
 
 ```typescript
-GET /tweets
-/* returns all tweets [{
+GET /posts
+/* returns all posts [{
   author:'caio',
-  message: 'A message'
+  message: 'A message',
+  image: 'src of image',
+  likes: [],
+  comments: []
 }]*/
 
-GET /tweets?author=carloleonardi
-/* returns all tweets by carloleonardi */
+GET /posts?author=carloleonardi
+/* returns all posts by carloleonardi */
 
-GET /tweets?word=Facebook
-/* returns all tweets that contains word Facebook */
+GET /posts?word=Facebook
+/* returns all posts that contains word Facebook */
 
-GET /tweets/1
-/* returns a tweets by Id = 1 */
+GET /posts/1
+/* returns a posts by Id = 1 */
 
-POST /tweets
-/* create a tweets, use body: { author:'carloleonardi', message: 'A simple message' } */
+POST /posts
+/* create a posts, use body: { author:'carloleonardi', image: '...', message: 'A simple message' } */
 
-DELETE /tweets/1
-/* delete a tweets by id = 1 */
+POST /posts/1/comments
+/* create a comments in post 1, use body: { author:'carloleonardi', imessage: 'A simple comment' } */
+
+POST /posts/1/likes
+/* create a comments in post 1, use body: { author:'carloleonardi', } */
+
+DELETE /posts/1
+/* delete a posts by id = 1 */
 
 ```

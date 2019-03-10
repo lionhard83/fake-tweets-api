@@ -138,6 +138,8 @@ router.post('/',  function(req, res){
         author: req.body.author,
         image: req.body.image,
         message: req.body.message,
+        likes: [],
+        comments: []
     }
     posts.push(post)
     res.status(201).json(post);
