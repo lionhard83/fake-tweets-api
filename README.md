@@ -1,5 +1,7 @@
 # fake-posts-api
 
+## https://fake-tweets-api.herokuapp.com/posts
+
 ### A simple use fake-posts-api
 
 ```typescript
